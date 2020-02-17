@@ -4,6 +4,9 @@ OK Defender is a simple powershell script that runs in the background and period
 In order for this script to work properly, you need to manually disable 'Tamper Protection' feature of Windows Defender. Open `Windows Settings` > `Update & Security` > `Windows Security` > `Virus & threat protection` > `Virus & threat protection settings` > `Manage settings` and set 'Tamper Protection' switch to Off.
 
 
+![ok_defender_screenshot](./screenshots/ok_defender_screenshot.png)
+
+
 ## FAQ
 **Q: Why would I want to disable Windows Defender real-time protection?**
 
