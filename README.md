@@ -15,7 +15,7 @@ A: Normally, you wouldn't. But disabling real-time protection can speed things i
 
 **Q: Why not just disable real-time protection manually via Windows Defender UI?**
 
-A: Windows Defender systematically checks the status of real-time protection service, and if it finds it disabled it will turn it back on automatically. This works in a random fasion so you never know when real-time protection will be turned on next time. Could be in 5 minutes or several hours. Totally unpredictible. The purpose of OK Defender script is to run in the background and try to stop real-time protection every 15 seconds. No matter if real-time protection is actually running or not.
+A: Windows Defender systematically checks the status of real-time protection service, and if it finds it disabled it will turn it back on automatically. This works in a random fashion so you never know when real-time protection will be turned on next time. Could be in 5 minutes or several hours. Totally unpredictible. The purpose of OK Defender script is to run in the background and try to stop real-time protection every 15 seconds. No matter if real-time protection is actually running or not.
   
 
 **Q: Is it safe to disable Windows Defender real-time protection?**
