@@ -6,7 +6,7 @@ param([switch]$elevated)
 
     if ((checkAdmin) -eq $false)  {
         if (-not $elevated) {
-            Start-Process powershell.exe -Verb RunAs -ArgumentList ('-noprofile -file "{0}" -elevated' -f ($myinvocation.MyCommand.Definition))
+            Start-Process powershell.exe -Verb RunAs -ArgumentList ('-noprofile -windowstyle normal -file "{0}" -elevated' -f ($myinvocation.MyCommand.Definition))
         }
         exit
     }
@@ -14,6 +14,12 @@ param([switch]$elevated)
 $Host.UI.RawUI.WindowTitle = "OK Defender"
 
 $statusRefreshRateSec = 15
+
+$trayIcon = (Get-AppxPackage Microsoft.Windows.SecHealthUI).installlocation + '\Assets\Threat.contrast-black.ico'
+[void][System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms")
+$NotifyIcon = New-Object System.Windows.Forms.NotifyIcon
+$NotifyIcon.Icon = $trayIcon
+$NotifyIcon.Visible = $true
 
 function Get-Status {
     param($targetParam)
@@ -52,4 +58,5 @@ try {
 }
 finally {
     Set-MpPreference -DisableRealtimeMonitoring $false
+    $NotifyIcon.Visible = $false
 }
