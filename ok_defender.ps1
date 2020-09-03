@@ -1,4 +1,6 @@
 param([switch]$elevated)
+    $windowstyle = 'normal' # normal, minimized, hidden
+    
     function checkAdmin {
         $currentUser = New-Object Security.Principal.WindowsPrincipal $([Security.Principal.WindowsIdentity]::GetCurrent())
         $currentUser.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
@@ -6,7 +8,7 @@ param([switch]$elevated)
 
     if ((checkAdmin) -eq $false)  {
         if (-not $elevated) {
-            Start-Process powershell.exe -Verb RunAs -ArgumentList ('-noprofile -windowstyle normal -file "{0}" -elevated' -f ($myinvocation.MyCommand.Definition))
+            Start-Process powershell.exe -Verb RunAs -ArgumentList ("-noprofile -windowstyle $windowstyle -file `"{0}`" -elevated" -f ($myinvocation.MyCommand.Definition))
         }
         exit
     }
