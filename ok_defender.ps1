@@ -1,17 +1,18 @@
 param([switch]$elevated)
-    $windowstyle = 'normal' # normal, minimized, hidden
-    
-    function checkAdmin {
-        $currentUser = New-Object Security.Principal.WindowsPrincipal $([Security.Principal.WindowsIdentity]::GetCurrent())
-        $currentUser.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
-    }
+$windowstyle = 'hidden' # normal, minimized, hidden
 
-    if ((checkAdmin) -eq $false)  {
-        if (-not $elevated) {
-            Start-Process powershell.exe -Verb RunAs -ArgumentList ("-noprofile -windowstyle $windowstyle -file `"{0}`" -elevated" -f ($myinvocation.MyCommand.Definition))
-        }
-        exit
+  
+function checkAdmin {
+    $currentUser = New-Object Security.Principal.WindowsPrincipal $([Security.Principal.WindowsIdentity]::GetCurrent())
+    $currentUser.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
+}
+
+if ((checkAdmin) -eq $false) {
+    if (-not $elevated) {
+        Start-Process powershell.exe -Verb RunAs -ArgumentList ("-noprofile -windowstyle $windowstyle -file `"{0}`" -elevated" -f ($myinvocation.MyCommand.Definition))
     }
+    exit
+}
 
 $Host.UI.RawUI.WindowTitle = "OK Defender"
 
@@ -25,8 +26,8 @@ $NotifyIcon.Visible = $true
 
 function Get-Status {
     param($targetParam)
-    if ($targetParam) {Write-Host "ON" -ForegroundColor Green}
-    else {Write-Host "OFF" -foregroundcolor Red}
+    if ($targetParam) { Write-Host "ON" -ForegroundColor Green }
+    else { Write-Host "OFF" -foregroundcolor Red }
 }
 
 function Show-Report {
